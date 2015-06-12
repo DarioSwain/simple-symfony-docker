@@ -1,0 +1,27 @@
+application:
+  build: .
+  command: php-fpm --allow-to-run-as-root
+  volumes:
+    - ./php/php.ini:/usr/local/etc/php/php.ini
+    - /var/www/vhosts/justy:/var/www/justy
+  links:
+   - mysql
+mysql:
+  command: mysqld --user=root --verbose
+  image: mysql
+  volumes:
+    - /var/www/vhosts/justy/.mysql:/var/lib/mysql
+  environment:
+    MYSQL_DATABASE: justy
+    MYSQL_USER: root
+    MYSQL_PASSWORD: root
+    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+nginx:
+  image: nginx:1.9.0
+  volumes:
+    - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    - /var/www/vhosts/justy:/var/www/justy
+  ports:
+   - "80:80"
+  links:
+   - application
