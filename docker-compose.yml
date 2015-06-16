@@ -8,14 +8,17 @@ dockerapp:
    - mysql
 mysql:
   command: mysqld --user=root --verbose
-  image: mysql
+  image: mysql:5.6
+  ports:
+    - 3306:3306
   volumes:
-    - ../.mysql:/var/lib/mysql
+    - /var/lib/docker/mysql:/var/lib/mysql
+    - ./mysql/my.cnf:/etc/mysql/my.cnf
   environment:
     MYSQL_DATABASE: project
-    MYSQL_USER: root
-    MYSQL_PASSWORD: root
-    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    MYSQL_USER: symfony
+    MYSQL_PASSWORD: symfony
+    MYSQL_ROOT_PASSWORD: root
 nginx:
   image: nginx:1.9
   volumes:

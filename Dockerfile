@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 	libicu-dev \
 	git \
 	&& docker-php-ext-configure intl \
-	&& docker-php-ext-install bcmath mbstring intl
+	&& docker-php-ext-install bcmath mbstring intl pdo_mysql
 
 RUN echo "zend_extension=opcache.so" >> "/usr/local/etc/php/conf.d/ext-opcache.ini"
 RUN curl -sS https://getcomposer.org/installer | php
