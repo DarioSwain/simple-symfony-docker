@@ -2,11 +2,11 @@ FROM php:5.6-fpm
 
 MAINTAINER Ilya Pokamestov <dario_swain@yahoo.com>
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y zlib1g-dev \
 	libicu-dev \
 	git \
 	&& docker-php-ext-configure intl \
-	&& docker-php-ext-install bcmath mbstring intl pdo_mysql \
+	&& docker-php-ext-install bcmath mbstring intl pdo_mysql zip \
 	&& echo "zend_extension=opcache.so" >> "/usr/local/etc/php/conf.d/ext-opcache.ini" \
 	&& curl -sS https://getcomposer.org/installer | php \
 	&& mv composer.phar /usr/local/bin/composer
